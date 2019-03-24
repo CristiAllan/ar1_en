@@ -49,6 +49,8 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  rescue ActiveRecord::StaleObjectError
+    redirect_to @user, notice: 'User wasnt updated'
   end
 
   # DELETE /users/1
